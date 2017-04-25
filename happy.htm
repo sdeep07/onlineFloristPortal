@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=page-width, initial-scale=1.0">
+   <title>Happy Flowers - Order</title>
+   <link rel="stylesheet" href="happy.css" />
+   <link href='http://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
+   
+<script>
+
+function billing_storedata()
+{
+    var first_name = document.getElementById("firstname").value;
+	var last_name = document.getElementById("lastname").value;
+	var address = document.getElementById("address").value;
+	var city = document.getElementById("city").value;
+	var zip = document.getElementById("zip").value;
+	var phone = document.getElementById("phone").value;
+	var state = document.getElementById("select_state");
+	var state_value = state.options[state.selectedIndex].value;
+	
+	return [first_name,last_name,address,city,zip,phone,state_value];
+}
+
+function delivery_storedata()
+{
+	var first_name = document.getElementById("delivery_firstname").value;
+	var last_name = document.getElementById("delivery_lastname").value;
+	var address = document.getElementById("delivery_address").value;
+	var city = document.getElementById("delivery_city").value;
+	var zip = document.getElementById("delivery_zip").value;
+	var phone = document.getElementById("delivery_phone").value;
+	var state = document.getElementById("delivery_select_state");
+	var state_value = state.options[state.selectedIndex].value;
+	
+	return [first_name,last_name,address,city,zip,phone,state_value];
+}
+
+function store_cust_msg()
+{
+ var user_msg = document.getElementById("custm_msg").value;
+ var custom_msg_box = false;
+ 
+ if (document.getElementById("cb_5").checked == true)
+	{
+		custom_msg_box = true;
+	}
+	
+ return [user_msg,custom_msg_box];
+}
+
+function store_payment_info()
+{
+	var bill_card = document.getElementById("card").value;
+	var cv = document.getElementById("cvv").value;
+	var un = document.getElementById("username").value;
+	var pw = document.getElementById("password").value;
+	var pwv = document.getElementById("passwordverify").value;
+	
+	var card_exp_month = document.getElementById("ExpMonth").value;
+	var card_exp_year = document.getElementById("ExpYear").value;
+	var payment_card_type = "";
+	
+	
+	if (myForm.payment_type[0].checked == true)
+	{
+		payment_card_type = "Visa";
+	}
+	
+	else if(myForm.payment_type[1].checked == true)
+	{
+		payment_card_type = "Master Card";
+	}
+	
+	else if(myForm.payment_type[2].checked == true)
+	{
+		payment_card_type = "Discover";
+	}
+	
+	else if(myForm.payment_type[3].checked == true)
+	{
+		payment_card_type = "American Express";
+	}
+	
+	
+	
+	return[bill_card,cv,un,pw,pwv,payment_card_type,card_exp_month,card_exp_year];
+}
+
+function store_dev_date()
+{
+
+	var yr = document.getElementById("Years");
+	var d_yr = yr.options[yr.selectedIndex].value;
+	
+	var mt = document.getElementById("Months");
+	var d_mt = mt.options[mt.selectedIndex].value;
+	
+	var dy = document.getElementById("Dates");
+	var d_dy = dy.options[dy.selectedIndex].value;
+	
+	return[d_yr,d_mt,d_dy];
+}
+function validateForm() 
+{
+	var billing_details = billing_storedata();
+	var deliverydetails = delivery_storedata();
+	var customers_msg = store_cust_msg();
+	var payment_info_check = store_payment_info();
+	var check_dev_date = store_dev_date();
+	
+	
+	
+	if (billing_details[0] == null || billing_details[0] == "") {
+        alert(" Please enter first name.");
+        return false;
+    }
+	else if (billing_details[1] == null || billing_details[1] == "") {
+        alert(" Please enter last name.");
+        return false;
+    }
+    else if (billing_details[2] == null || billing_details[2] == "") {
+        alert(" Address must be filled out");
+        return false;
+    }
+
+	else  if (billing_details[3] == null || billing_details[3] == "") {
+        alert(" City must be filled out");
+        return false;
+    }
+	
+	else  if (billing_details[6].length === 0) {
+       alert(" Please select a state.");
+       return false;
+    }
+	
+	else  if (billing_details[4] == null || billing_details[4] == "") {
+        alert(" Zip must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(billing_details[4])){
+	    alert("Zip must be a valid numeric")
+		return false;
+	}
+	
+	else  if (billing_details[5]== null || billing_details[5] == "") {
+        alert(" Phone must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(billing_details[5])){
+	    alert("Phone must be a valid numeric")
+		return false;
+	}
+
+	else if (deliverydetails[0] == null || deliverydetails[0] == "") {
+        alert(" Please enter first name.");
+        return false;
+    }
+	else if (deliverydetails[1] == null || deliverydetails[1] == "") {
+        alert(" Please enter last name.");
+        return false;
+    }
+    else if (deliverydetails[2] == null || deliverydetails[2] == "") {
+        alert(" Address must be filled out");
+        return false;
+    }
+
+	else  if (deliverydetails[3] == null || deliverydetails[3] == "") {
+        alert(" City must be filled out");
+        return false;
+    }
+	
+	else  if (deliverydetails[6].length === 0) {
+       alert(" Please select a state.");
+       return false;
+    }
+	
+	else  if (deliverydetails[4] == null || deliverydetails[4] == "") {
+        alert(" Zip must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(deliverydetails[4])){
+	    alert("Zip must be a valid numeric")
+		return false;
+	}
+	
+	else  if (deliverydetails[5]== null || deliverydetails[5] == "") {
+        alert(" Phone must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(deliverydetails[5])){
+	    alert("Phone must be a valid numeric")
+		return false;
+	}		
+	
+    
+    else if(((check_dev_date[1]== 4)||(check_dev_date[1] == 6)||(check_dev_date[1] == 9)||(check_dev_date[1] == 11))&& (check_dev_date[2] > 30))
+	{
+		alert(" Date entered is invalid");
+		return false;
+	}
+	
+    else if((check_dev_date[1]== 2)&& (check_dev_date[2] > 29) &&(check_dev_date[0]== 2016))
+	{
+		alert(" Date entered is invalid");
+		return false;
+	}
+	
+    else if(((check_dev_date[1]== 2)&& (check_dev_date[2] > 28)) &&((check_dev_date[0]== 2014)||(check_dev_date[0]== 2015)||(check_dev_date[0]== 2017)))
+	{
+		alert(" Date entered is invalid");
+		return false;
+	}
+	
+	
+	else  if (payment_info_check[0] == null || payment_info_check[0]  == "") {
+        alert(" Card number must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(payment_info_check[0] )){
+	    alert("Card must be a valid number")
+		return false;
+	}
+
+	else if (payment_info_check[1]  == null || payment_info_check[1]  == "") {
+        alert(" Cvv number must be filled out");
+        return false;
+    }
+
+	
+	else if (isNaN(payment_info_check[1])){
+	    alert("Cvv must be a valid numeric")
+		return false;
+	}
+	
+	else if (payment_info_check[2]  == null || payment_info_check[2] == "") {
+        alert(" Username must be filled out");
+        return false;
+    }
+	
+	else  if (payment_info_check[3]  == null || payment_info_check[3] == "") {
+        alert(" Password must filled out");
+       return false;
+    }
+	
+	else  if (payment_info_check[4]  == null || payment_info_check[4]  == "") {
+        alert(" Password verify must filled out");
+       return false;
+    }
+
+	else  if (payment_info_check[3]  !== payment_info_check[4] ) {
+        alert(" Password don't match");
+       return false;
+    }
+	
+
+	
+	else if ( ( myForm.payment_type[0].checked == false ) && ( myForm.payment_type[1].checked == false )&& ( myForm.payment_type[2].checked == false )&& ( myForm.payment_type[3].checked == false ) ) 
+	{
+		alert ( "Please choose your payment type" ); 
+		return false;
+	}
+	
+	else if ( ( document.getElementById("cb_1").checked == false ) && ( document.getElementById("cb_2").checked == false )&& ( document.getElementById("cb_3").checked == false )&& ( document.getElementById("cb_4").checked == false )&& ( document.getElementById("cb_5").checked == false ) ) 
+	{
+		alert ( "Please choose a Message" ); 
+		return false;
+	}
+	else if((document.getElementById("cb_5").checked == true) && ((customers_msg[0] =="Enter custom message here (max 250 characters.)")|| (customers_msg[0] == "")))
+	{
+		
+	    alert ( "Please enter a new Message. Also, Message cannot be blank." ); 
+		return false;	
+	}
+}
+function FillBilling(myForm)
+{
+	
+  if (document.getElementById("delivery_cb_billing").checked == true) 
+  {
+	document.getElementById("delivery_firstname").value = document.getElementById("firstname").value;
+	document.getElementById("delivery_lastname").value  = document.getElementById("lastname").value;
+	document.getElementById("delivery_address").value = document.getElementById("address").value;
+    document.getElementById("delivery_city").value = document.getElementById("city").value ;
+    document.getElementById("delivery_zip").value = document.getElementById("zip").value;
+    document.getElementById("delivery_phone").value = document.getElementById("phone").value;
+	
+	myForm.delivery_select_state.value = myForm.select_state.value;
+  }
+ else if (document.getElementById("delivery_cb_billing").checked == false)
+  {
+	
+	document.getElementById("delivery_firstname").value ="";
+	document.getElementById("delivery_lastname").value ="" ;
+	document.getElementById("delivery_address").value ="";
+    document.getElementById("delivery_city").value="";
+    document.getElementById("delivery_zip").value ="";
+    document.getElementById("delivery_phone").value="";	
+    myForm.delivery_select_state.value ="";
+}
+}
+
+function final_page()
+{
+
+	var billing_details = billing_storedata();
+	var deliverydetails = delivery_storedata();
+	var customers_msg = store_cust_msg();
+	var payment_info_check = store_payment_info();
+	var check_dev_date = store_dev_date();
+	var same_as_billing_add = document.getElementById("delivery_cb_billing").value;
+	
+	var form_submit = document.getElementById("h2");
+	form_submit.innerText = "Your form has been submitted";
+	var name_submit = document.getElementById("myForm");
+	
+	var msg_fieldset = document.getElementById("message");
+	var billing_add_fieldset = document.getElementById("billingAddress");
+	var dev_add_fieldset = document.getElementById("deliveryAddress");
+	var dev_date_fieldset = document.getElementById("deliveryDate");
+	var pay_info_fieldset = document.getElementById("paymentInfo");
+	var create_acc_fieldset = document.getElementById("createAccount");
+	var create_button_fieldset= document.getElementById("buttonContainer");
+	
+	name_submit.removeChild(msg_fieldset);
+	name_submit.removeChild(billing_add_fieldset);
+	name_submit.removeChild(dev_add_fieldset);
+	name_submit.removeChild(dev_date_fieldset);
+	name_submit.removeChild(pay_info_fieldset);
+	name_submit.removeChild(create_acc_fieldset);
+	name_submit.removeChild(create_button_fieldset);
+	
+	
+	var updated_fieldset = document.createElement("fieldset");
+	updated_fieldset.class = "text";
+
+	var new_header = document.createElement("h3");
+	new_header.innerText = "You entered the following text"
+	
+	updated_fieldset.appendChild(new_header);
+	name_submit.appendChild(updated_fieldset);
+	
+	var display_result = document.createElement("p");
+	updated_fieldset.appendChild(display_result);
+	
+	display_result.innerHTML = "<pre>"+ "\nCustomText=" + customers_msg[1]  + "\nBillingFirstName=" + billing_details[0] +
+		"\nBillingLastName=" + billing_details[1] +"\nBillingStreet=" + billing_details[2] + "\nBillingCity=" + billing_details[3] +
+		"\nBillingState=" + billing_details[6]+ "\nBillingZip=" + billing_details[4] + "\nBillingPhone=" + billing_details[5] +
+		"\nSameAddress=" + same_as_billing_add+ "\nDeliveryFirstName=" + deliverydetails[0] + "\nDeliveryLastName=" + deliverydetails[1] +
+		"\nDeliveryStreet=" + deliverydetails[2] + "\nDeliveryCity=" + deliverydetails[3] + "\nDeliveryState" + deliverydetails[6] +
+		"\nDeliveryZip=" + deliverydetails[4] +"\nDeliveryPhone=" + deliverydetails[5] +"\nDelivMonth=" + check_dev_date[1] + "\nDelivDay=" + check_dev_date[2] +
+		"\nDelivYear=" + check_dev_date[0] + "\nPaymentType=" + payment_info_check[5] + "\nCardNumber=" + payment_info_check[0] + "\nExpMonth=" + payment_info_check[6] +
+		"\nExpYear=" + payment_info_check[7] + "\nCVV=" + payment_info_check[1] + "\nNewUserName1=" + "\nPassword1=" +"\nPassword1=" + 
+		"</pre>";	
+}
+           		
+</script>
+</head>
+
+<body>
+   <div class="container">
+      <header>
+         <h1>
+            Happy Flowers
+         </h1>
+      </header>
+
+      <nav>
+         <ul>
+            <li><a href="#">Floral Arrangements</a></li>
+            <li><a href="#">Seasonal Bouquets</a></li>
+            <li><a href="#">Live Plants</a></li>
+            <li><a href="#">Shop by Price</a></li>
+         </ul>
+      </nav>
+   </div>
+
+   <article>
+      <h2 id="h2">Place an Order</h2>
+      <div id="errorText"></div>
+      <form id="myForm"action="javascript:final_page()" onsubmit="return validateForm()">
+	  
+         <fieldset id="message" class="checks">
+			<legend>Message</legend>
+			<input type="checkbox" id= "cb_1">
+			<label for="cb_1">Congratulations!</label>		
+			<input type="checkbox" id= "cb_2">
+			<label for="cb_2">Happy Birthday!</label>		
+			<input type="checkbox" id= "cb_3">
+			<label for="cb_3">Happy Anniversary!</label>			
+			<input type="checkbox" id= "cb_4">
+			<label for="cb_4">I love you!</label>
+			<input type="checkbox" id= "cb_5">
+			<label for="cb_5">Custom message</label>
+			<textarea name="custom_msg" id="custm_msg">Enter custom message here (max 250 characters.)</textarea>	
+         </fieldset>
+		 
+		<fieldset id="billingAddress" class="text">
+		    <legend>Billing Address</legend>
+			<label for="firstname">First name:</label> 
+			<input type="text" name="firstname" id="firstname">
+			<label for="lastname">Last name:</label> 
+			<input type="text" name="lastname" id="lastname">
+			<label for="address">Street Address:</label> 
+			<input type="text" name="address" id="address">
+			<label for="city">City</label> 
+			<input type="text" name="city" id="city">
+			<label for="state">State</label>
+			<select id="select_state"> 
+            <option value="">Please select an option</option>			
+			<option value="Alabama">AL</option>
+			<option value="Alaska">AK</option>
+			<option value="Arizona">AZ</option>
+			<option value="Arkansas">AR</option>
+			<option value="California">CA</option>
+			<option value="Colorado">CO</option>
+			<option value="Connecticut">CT</option>
+			<option value="Delaware">DE</option>
+			<option value="Florida">FL</option>
+			<option value="Georgia">GA</option>
+			<option value="Hawaii">HA</option>
+			<option value="Idaho">ID</option>
+			<option value="Illinois">IL</option>
+			<option value="Indiana">IN</option>
+			<option value="Iowa">IA</option>
+			<option value="Kansas">KS</option>
+			<option value="Kentucky">KY</option>
+			<option value="Louisiana">LA</option>
+			<option value="Maine">ME</option>
+			<option value="Maryland">MD</option>
+			<option value="Massachusetts">MA</option>
+			<option value="Michigan">MI</option>
+			<option value="Minnesota">MN</option>
+			<option value="Mississippi">MS</option>
+			<option value="Missouri">MO</option>
+			<option value="Montana">MT</option>
+			<option value="Nebraska">NE</option>
+			<option value="Nevada">NV</option>
+			<option value="NewHampshire">NH</option>
+			<option value="New Jersey">NJ</option>
+			<option value="New Mexico">NM</option>
+			<option value="New York">NY</option>
+			<option value="North Carolina">NC</option>
+			<option value="North Dakota">ND</option>
+			<option value="Ohio">OH</option>
+			<option value="Oklahoma">OK</option>
+			<option value="Oregon">OR</option>
+			<option value="Pennsylvania">PA</option>
+			<option value="Rhode Island">RI</option>
+			<option value="South Carolina">SC</option>
+			<option value="South Dakota">SD</option>
+			<option value="Tennessee">TN</option>
+			<option value="Texas">TX</option>
+			<option value="Utah">UT</option>
+			<option value="Vermont">VT</option>
+			<option value="Virginia">VA</option>
+			<option value="Washington">WA</option>
+			<option value="West Virginia">WV</option>
+			<option value="Wisconsin">WI</option>
+			<option value="Wyoming">WY</option>
+			<option value="District of Columbia">DC</option>
+			<option value="Puerto Rico">PR</option>
+			<option value="Guam">GU</option>
+			<option value="American Samoa">AS</option>
+			<option value="U.S. Virgin Islands">VIR</option>
+			<option value="Northern Mariana Islands">MNP</option>		 
+			</select>
+			<label for="zip">Zip</label> 
+			<input type="text" name="zip" id="zip">
+			<label for="phone">Phone</label> 
+			<input type="phone" name="phone" id="phone">			
+        </fieldset>
+		
+		<fieldset id="deliveryAddress"class="text">
+			<legend>Delivery Address</legend><br>
+			<div class="checks">
+				<input type="checkbox" id= "delivery_cb_billing" onclick="FillBilling(this.form)">
+				<label for="delivery_cb_billing">same as billing address</label>
+			</div>
+			<label for="delivery_firstname">First name:</label> 
+			<input type="text" name="delivery_firstname" id="delivery_firstname">
+			<label for="delivery_lastname">Last name:</label>
+			<input type="text" name="delivery_lastname" id="delivery_lastname">
+			<label for="delivery_address">Street Address:</label>
+			<input type="text" name="delivery_address" id="delivery_address">
+			<label for="delivery_city">City</label> 
+			<input type="text" name="delivery_city" id="delivery_city">
+			<label for="state">State</label>
+			<select id="delivery_select_state"> 
+            <option value="">Please select an option</option>     
+			<option value="Alabama">AL</option>
+			<option value="Alaska">AK</option>
+			<option value="Arizona">AZ</option>
+			<option value="Arkansas">AR</option>
+			<option value="California">CA</option>
+			<option value="Colorado">CO</option>
+			<option value="Connecticut">CT</option>
+			<option value="Delaware">DE</option>
+			<option value="Florida">FL</option>
+			<option value="Georgia">GA</option>
+			<option value="Hawaii">HA</option>
+			<option value="Idaho">ID</option>
+			<option value="Illinois">IL</option>
+			<option value="Indiana">IN</option>
+			<option value="Iowa">IA</option>
+			<option value="Kansas">KS</option>
+			<option value="Kentucky">KY</option>
+			<option value="Louisiana">LA</option>
+			<option value="Maine">ME</option>
+			<option value="Maryland">MD</option>
+			<option value="Massachusetts">MA</option>
+			<option value="Michigan">MI</option>
+			<option value="Minnesota">MN</option>
+			<option value="Mississippi">MS</option>
+			<option value="Missouri">MO</option>
+			<option value="Montana">MT</option>
+			<option value="Nebraska">NE</option>
+			<option value="Nevada">NV</option>
+			<option value="NewHampshire">NH</option>
+			<option value="New Jersey">NJ</option>
+			<option value="New Mexico">NM</option>
+			<option value="New York">NY</option>
+			<option value="North Carolina">NC</option>
+			<option value="North Dakota">ND</option>
+			<option value="Ohio">OH</option>
+			<option value="Oklahoma">OK</option>
+			<option value="Oregon">OR</option>
+			<option value="Pennsylvania">PA</option>
+			<option value="Rhode Island">RI</option>
+			<option value="South Carolina">SC</option>
+			<option value="South Dakota">SD</option>
+			<option value="Tennessee">TN</option>
+			<option value="Texas">TX</option>
+			<option value="Utah">UT</option>
+			<option value="Vermont">VT</option>
+			<option value="Virginia">VA</option>
+			<option value="Washington">WA</option>
+			<option value="West Virginia">WV</option>
+			<option value="Wisconsin">WI</option>
+			<option value="Wyoming">WY</option>
+			<option value="District of Columbia">DC</option>
+			<option value="Puerto Rico">PR</option>
+			<option value="Guam">GU</option>
+			<option value="American Samoa">AS</option>
+			<option value="U.S. Virgin Islands">VIR</option>
+			<option value="Northern Mariana Islands">MNP</option>		 
+			</select>
+			<label for="delivery_zip">Zip</label> 
+			<input type="text" name="delivery_zip" id="delivery_zip">
+			<label for="delivery_phone">Phone</label> 
+			<input type="phone" name="delivery_phone" id="delivery_phone">
+        </fieldset>
+		 
+         <fieldset id="deliveryDate" class="checks">
+			<legend>Delivery Date</legend>
+			<select id="Months">
+			<option value="1">January</option>         
+			<option value="2">February</option>         
+			<option value="3">March</option>     
+			<option value="4">April</option>         
+			<option value="5">May</option>         
+			<option value="6">June</option>
+			<option value="7">July</option>
+			<option value="8">August</option>
+			<option value="9">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+			</select>
+			<select id="Dates">
+			<option value="1">1</option>         
+			<option value="2">2</option>         
+			<option value="3">3</option>     
+			<option value="4">4</option>         
+			<option value="5">5</option>         
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+			<option value="24">24</option>
+			<option value="25">25</option>
+			<option value="26">26</option>
+			<option value="27">27</option>
+			<option value="28">28</option>
+			<option value="29">29</option>
+			<option value="30">30</option>
+			<option value="31">31</option>
+			</select>
+			<select id="Years">
+			<option value="2017">2017</option>         
+			<option value="2016">2016</option>         
+			<option value="2015">2015</option>     
+			<option value="2014">2014</option>         
+			</select>
+
+         </fieldset>
+         <fieldset id="paymentInfo" class="text">
+		 <legend>Payment</legend>
+		 <div id= "paymentCard" class="inline">
+		 <input type="radio" name = "payment_type">
+			<label for="Visa">Visa</label>		
+			<input type="radio" name= "payment_type">
+			<label for="Mastercard">Master Card</label>		
+			<input type="radio" name= "payment_type">
+			<label for="Discover">Discover</label>			
+			<input type="radio" name= "payment_type">
+			<label for="AmericanExpress">American Express</label>
+		 </div>
+		    <label for="card">Card #</label> 
+			<input type="text" name="card" id="card">
+			<label for="expiration">Expiration</label>
+			<select id="ExpMonth">
+			<option value="January">1</option>         
+			<option value="February">2</option>         
+			<option value="March">3</option>     
+			<option value="April">4</option>         
+			<option value="May">5</option>         
+			<option value="June">6</option>
+			<option value="July">7</option>
+			<option value="August">8</option>
+			<option value="September">9</option>
+			<option value="October">10</option>
+			<option value="November">11</option>
+			<option value="December">12</option>
+			</select>
+			<select id="ExpYear">
+			<option value="2017">2017</option>         
+			<option value="2018">2018</option>        
+			</select>
+			<label for="cvv">CVV</label>
+			<input type="text" name="cvv" id="cvv">
+         </fieldset>
+         <fieldset id="createAccount" class="text">
+			<legend>Create Account?</legend>
+			<p>To be able to acess your purchase history and make chages to your order <br>
+		     enter a name and passsword to create an account</p>
+		    <label for="username">Username</label>
+			<input type="text" name="username" id="username">
+			<label for="password">Password</label>
+			<input type="text" name="password" id="password">
+			<label for="passwordverify">Password (verify)</label>
+			<input type="text" name="passwordVerify" id="passwordverify">
+			
+
+         </fieldset>
+         <div id="buttonContainer">
+            <input type="submit" value="Place Order" id="orderButton"/>
+         </div>
+      </form>
+   </article>
+   <footer>Happy Flowers <span>&bull;</span> Chicago, IL</footer> 
+</body>
+</html>
